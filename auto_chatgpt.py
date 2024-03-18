@@ -3,6 +3,10 @@
 # Contact: caneman@163.com
 # File   : check_in.py
 # Time   : 2024/3/18 17:57
+"""
+cron: 0 30 8 * * ?
+new Env('BurnHair自动签到');
+"""
 
 import os
 import requests
