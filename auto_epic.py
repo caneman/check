@@ -5,7 +5,7 @@
 # Time   : 2024/3/19 9:17
 """
 cron: 0 0 9 ? * 5
-new Env(’Epic免费游戏监控');
+new Env('Epic免费游戏监控');
 """
 import time
 import requests
