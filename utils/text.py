@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-# author  : Cane
-# QQ      : 54462068
+# Author : Cane
+# Contact: caneman@163.com
+# File   : text.py
+# Time   : 2024/3/25 15:11
 
 import time
 
@@ -36,17 +38,5 @@ def is_today(timestamp):
         return False
 
 
-class Title(object):
-
-    @staticmethod
-    def common_title(title):
-        title = """
-*********************
-*  【{}】 *
-*********************
-""".strip().format(title)
-        return title
-
-
 if __name__ == '__main__':
-    print(timestamp_to_date(1667487600))
+    pass

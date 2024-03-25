@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-# author  : Cane
-# QQ      : 54462068
+# Author : Cane
+# Contact: caneman@163.com
+# File   : log.py
+# Time   : 2024/3/25 15:09
 
 from utils.text import now_time
 

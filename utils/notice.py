@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-# author  : Cane
-# QQ      : 54462068
+# Author : Cane
+# Contact: caneman@163.com
+# File   : notice.py
+# Time   : 2024/3/25 15:10
 
 import json
 import requests
@@ -11,10 +13,9 @@ from utils.path import get_env
 class AbstractPusher(metaclass=ABCMeta):
 
     tags = []
-    default_config = ''
 
-    def __init__(self, config: str = '') -> None:
-        self.config = config if config else self.default_config
+    def __init__(self, environ_name: str = '') -> None:
+        self.environ_name = environ_name
 
     @abstractmethod
     def push(self, *args, **kwargs):
@@ -24,17 +25,18 @@ class AbstractPusher(metaclass=ABCMeta):
 class Wecom(AbstractPusher):
 
     tags = ['[企业微信]']
-    default_config = 'wecom'
 
-    def __init__(self, config: str = '') -> None:
-        super().__init__(config)
+    def __init__(self, environ_name: str = 'wecom') -> None:
+        super().__init__(environ_name)
 
     def post_msg(self, msg: str, to_user: str) -> None:
-        _id, secret, default_to_user, agent_id = get_env(self.config)
-        token_url = 'https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={}&corpsecret={}'.format(_id, secret)
+        _id, secret, default_to_user, agent_id = get_env(self.environ_name)
+        wecom_proxy = get_env('wecom_proxy')
+        wecom_host = wecom_proxy if wecom_proxy else 'https://qyapi.weixin.qq.com'
+        wecom_host = wecom_host[:-1] if wecom_host.endswith('/') else wecom_host
+        token_url = f'{wecom_host}/cgi-bin/gettoken?corpid={_id}&corpsecret={secret}'
         token = requests.get(token_url).json()['access_token']
-
-        url = 'https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={}&debug=1'.format(token)
+        url = f'{wecom_host}/cgi-bin/message/send?access_token={token}&debug=1'
         to_user = to_user if to_user else default_to_user
         data = {
             'touser': to_user,
@@ -55,18 +57,19 @@ class Wecom(AbstractPusher):
 class WecomPic(AbstractPusher):
 
     tags = ['[企业微信图片]']
-    default_config = 'wecom'
 
-    def __init__(self, config: str = '') -> None:
-        super().__init__(config)
+    def __init__(self, environ_name: str = 'wecom') -> None:
+        super().__init__(environ_name)
 
     def post_msg(self, title, content, pic_url, jump_url):
-        _id, secret, to_user, agent_id = get_env(self.config)
-        token_url = 'https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={}&corpsecret={}'.format(_id, secret)
+        _id, secret, to_user, agent_id = get_env(self.environ_name)
+        wecom_proxy = get_env('wecom_proxy')
+        wecom_host = wecom_proxy if wecom_proxy else 'https://qyapi.weixin.qq.com'
+        wecom_host = wecom_host[:-1] if wecom_host.endswith('/') else wecom_host
+        token_url = f'{wecom_host}/cgi-bin/gettoken?corpid={_id}&corpsecret={secret}'
         token_resp = requests.get(token_url)
         token = json.loads(token_resp.text)['access_token']
-
-        url = 'https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={}&debug=1'.format(token)
+        url = f'{wecom_host}/cgi-bin/message/send?access_token={token}&debug=1'
         data = {
             'touser': str(to_user),
             'msgtype': 'news',
@@ -89,13 +92,12 @@ class WecomPic(AbstractPusher):
 class WecomRobot(AbstractPusher):
 
     tags = ['[企业微信机器人]']
-    default_config = 'wecom_robot'
 
-    def __init__(self, config: str = '') -> None:
-        super().__init__(config)
+    def __init__(self, environ_name: str = 'wecom_robot') -> None:
+        super().__init__(environ_name)
 
     def post_msg(self, content: str) -> None:
-        url = get_env(self.config)
+        url = get_env(self.environ_name)
         data = {
             'msgtype': 'text',
             'text': {'content': content}

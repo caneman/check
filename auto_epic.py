@@ -7,19 +7,9 @@
 cron: 0 0 9 ? * 5
 new Env('Epic免费游戏监控');
 """
-import time
 import requests
 from utils.text import timestamp_to_date, today
 from utils.notice import WecomPic
-
-
-def format_date_to_timestamp(date):
-    if not date:
-        return 0
-    date = date.replace('/', '-')
-    time_array = time.strptime(date, '%Y-%m-%d')
-    timestamp = int(time.mktime(time_array))
-    return timestamp
 
 
 class EpicSpider(object):
@@ -62,7 +52,7 @@ class EpicSpider(object):
             pic_url = game_info['game_pic_link']
             jump_url = game_info['game_shop_link']
             title = f'{game_name}'
-            content = f'游戏评分：{score}\n游戏价格：{amount}\n当前价格：¥0.00\n开始日期：{start_date}\n截止日期：{end_date}'
+            content = f'游戏名称：{game_name}\n游戏评分：{score}\n游戏价格：{amount}\n当前价格：¥0.00\n开始日期：{start_date}\n截止日期：{end_date}'
             pusher.push(title, content, pic_url, jump_url)
 
 
