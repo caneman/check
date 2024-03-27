@@ -9,14 +9,17 @@ from typing import Union, List
 
 
 #  环境变量
-def get_env(name: str, default: str = '') -> Union[str, List[str], None]:
+def get_env(name: str, default: str = '', split: bool = True) -> Union[str, List[str], None]:
     if default:
-        value_str = default
+        value_str = default.strip()
     else:
-        value_str = os.environ.get(name)
+        value_str = os.environ.get(name).strip()
 
     if not value_str:
         return None
+
+    if not split:
+        return value_str
 
     value_list = value_str.split(';')
     if len(value_list) == 1:

@@ -35,6 +35,14 @@ services:
 
 需设置通知器: 企业微信应用 - 图文卡片
 
+## Hifini 自动签到
+
+环境变量名: hifini
+
+环境变量值: Cookie
+
+> 示例: bbs_sid=xxxxxx; bbs_token=xxxxx
+
 ## 日志推送
 
 基于消息头的日志推送
