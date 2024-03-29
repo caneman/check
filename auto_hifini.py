@@ -53,7 +53,10 @@ class HifiniSpider(object):
             coin_pattern = re.compile(r'成功签到！今日排名\d+，总奖励(\d+)金币！')
             rank = ''.join(rank_pattern.findall(resp.text))
             coin = ''.join(coin_pattern.findall(resp.text))
-            wecom_log(f'[Hifini]签到成功，今日排名: {rank}，获得金币: {coin}', SYMBOL_SUCCESS)
+            if rank and coin:
+                wecom_log(f'[Hifini]签到成功，今日排名: {rank}，获得金币: {coin}', SYMBOL_SUCCESS)
+            else:
+                wecom_log(f'[Hifini]签到成功', SYMBOL_SUCCESS)
         else:
             wecom_log('[Hifini]签到失败', SYMBOL_FALSE)
 
