@@ -36,7 +36,7 @@ def get_cookie() -> List[Tuple[str, List[dict]]]:
 
 
 def get_flare_url() -> str:
-    return get_env('flare', split=False)
+    return get_env('flare_url', split=False)
 
 
 class BurnHairSpider(object):
