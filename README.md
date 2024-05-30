@@ -47,11 +47,11 @@ docker run -d -p 5700:5700 --name ql -v /home/ql:/ql/data -e TZ=Asia/Shanghai --
 
 ## 脚本支持列表
 
-| 网站说明         | 环境变量名 | 环境变量值 | 示例                                | 补充说明                                                     |
-| ---------------- | ---------- | ---------- | ----------------------------------- | ------------------------------------------------------------ |
-| burnhair         | burn       | Cookie     | session=MTcxMDc1NjAyM3xEWDhFQVFM... | 可以创建多个环境变量名， burn、burn1、burn2.....burn99 (最多支持100个帐号) |
-| hifini           | hifini     | Cookie     | bbs_sid=xxxxxx; bbs_token=xxxxx     | -                                                            |
-| Epic免费游戏通知 | -          | -          |                                     | 设置企业微信通知器，开启脚本后自动通知                       |
+| 网站说明         | 环境变量名      | 环境变量值 | 示例                                | 补充说明                                                     |
+| ---------------- | --------------- | ---------- | ----------------------------------- | ------------------------------------------------------------ |
+| burnhair         | burn、flare_url | Cookie     | session=MTcxMDc1NjAyM3xEWDhFQVFM... | 可以创建多个环境变量名， burn、burn1、burn2.....burn99 (最多支持100个帐号) |
+| hifini           | hifini          | Cookie     | bbs_sid=xxxxxx; bbs_token=xxxxx     | -                                                            |
+| Epic免费游戏通知 | -               | -          |                                     | 设置企业微信通知器，开启脚本后自动通知                       |
 
 ## 日志推送
 

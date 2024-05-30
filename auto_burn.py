@@ -52,6 +52,8 @@ class BurnHairSpider(object):
         msg_pattern = re.compile(r'\{.*}')
         total = len(cookie_list)
         for index, item in enumerate(cookie_list):
+            success = False
+            msg = ''
             for i in range(5):
                 try:
                     environ_name, cookies_with_domain = item
@@ -70,16 +72,26 @@ class BurnHairSpider(object):
                         item_r_json = json.loads(item_response)
                         if item_r_json['success']:
                             count = ''.join(re.findall(r'(\d+)', item_r_json['message']))
-                            wecom_log(f'[BurnHair][{environ_name}]签到成功，获得「{count}」Token', SYMBOL_SUCCESS)
+                            msg = f'[BurnHair][{environ_name}]签到成功，获得「{count}」Token'
+                            success = True
                         elif '已经签到' in item_r_json['message']:
-                            wecom_log(f'[BurnHair][{environ_name}]已签到', SYMBOL_SUCCESS)
+                            msg = f'[BurnHair][{environ_name}]已签到'
+                            success = True
                         else:
-                            wecom_log(f'[BurnHair][{environ_name}]签到失败，{item_r_json["message"]}', SYMBOL_FALSE)
+                            msg = f'[BurnHair][{environ_name}]签到失败，{item_r_json["message"]}'
+                            success = False
                     else:
-                        wecom_log(f'[BurnHair][{environ_name}]签到失败', SYMBOL_FALSE)
+                        msg = f'[BurnHair][{environ_name}]签到失败', SYMBOL_FALSE
+                        success = False
+                    break
                 except Exception as e:
                     print(f'{e}')
                     time.sleep(10)
+
+            if success is False:
+                wecom_log(msg, SYMBOL_FALSE)
+            else:
+                wecom_log(msg, SYMBOL_SUCCESS)
 
 
 if __name__ == '__main__':
