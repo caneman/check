@@ -13,15 +13,15 @@ def get_env(name: str, default: str = '', split: bool = True) -> Union[str, List
     if default:
         value_str = default.strip()
     else:
-        value_str = os.environ.get(name).strip()
+        value_str = os.environ.get(name)
 
     if not value_str:
         return None
 
     if not split:
-        return value_str
+        return value_str.strip()
 
-    value_list = value_str.split(';')
+    value_list = value_str.strip().split(';')
     if len(value_list) == 1:
         return value_list[0]
     else:
