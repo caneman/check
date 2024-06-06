@@ -3,7 +3,10 @@
 # Contact: caneman@163.com
 # File   : auto_burn_tg.py
 # Time   : 2024/6/6 10:20
-
+"""
+cron: 0 30 8 * * ?
+new Env('BurnHair TG自动签到');
+"""
 import re
 import asyncio
 from telethon import TelegramClient, events
