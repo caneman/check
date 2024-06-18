@@ -13,6 +13,8 @@ data/
 log/
 temp/
 test*.py
+telegram*
+captcha/
 
 
 # Distribution / packaging
