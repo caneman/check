@@ -1,3 +1,4 @@
 requests
 telethon
-ddddocr
+numpy==1.24.4
+ddddocr==1.5.3
